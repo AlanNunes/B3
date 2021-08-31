@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Ordens.Application\Ordens.Application.csproj" />
+    <ProjectReference Include="..\SharedKernel.Infra.CrossCutting.IoC\SharedKernel.Infra.CrossCutting.IoC.csproj" />
   </ItemGroup>
 
 </Project>

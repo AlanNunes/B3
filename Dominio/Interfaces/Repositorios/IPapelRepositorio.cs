@@ -2,7 +2,7 @@
 
 namespace Dominio.Interfaces.Repositorios
 {
-    public interface IPapelRepositorio : IRepositorio<Papel>
+    public interface IPapelRepositorio
     {
     }
 }
