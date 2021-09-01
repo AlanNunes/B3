@@ -6,7 +6,9 @@ namespace Dominio.Entidades
     {
         public int Id { get; set; }
         public string CodigoPapel { get; set; }
-        public decimal Valor {  get; set; }
+        public decimal Valor { get; set; }
+        public int InvestidorId { get; set; }
+        public Investidor Investidor { get; set; }
         public TipoOrdem Tipo { get; set; }
         public StatusOrdem Status { get; set; }
         public DateTime DataEnvio { get; set; }
@@ -15,6 +17,11 @@ namespace Dominio.Entidades
         {
             bool enviadaNoHorarioDeNegociacao = this.DataEnvio >= inicioNegociacao && this.DataEnvio <= terminoNegociacao;
             return enviadaNoHorarioDeNegociacao && StatusOrdem.Rejeitada != this.Status;
+        }
+
+        public bool PapelPertenceMercadoFracionario()
+        {
+            return CodigoPapel.EndsWith("F");
         }
     }
 }

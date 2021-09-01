@@ -1,7 +1,6 @@
 ﻿using Dominio.Entidades;
 using Dominio.Interfaces.Repositorios;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SharedKernel.Infra.Data.Repositorios
@@ -15,16 +14,16 @@ namespace SharedKernel.Infra.Data.Repositorios
             _contexto = contexto;
         }
 
+        public async Task<Ordem> BuscaUltimaOrdemEnviadaPorInvestidor(int investidorId)
+        {
+            return await _contexto.Ordens.LastOrDefaultAsync(o => o.InvestidorId == investidorId);
+        }
+
         public async Task RegistraOrdem(Ordem ordem)
         {
             _contexto.Set<Ordem>();
             await _contexto.AddAsync(ordem);
-        }
-
-        public async Task RegistraOrdens(IEnumerable<Ordem> ordens)
-        {
-            _contexto.Set<Ordem>();
-            await _contexto.AddRangeAsync(ordens);
+            await _contexto.SaveChangesAsync();
         }
     }
 }

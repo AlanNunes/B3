@@ -11,6 +11,7 @@ namespace SharedKernel.Infra.Data.Mapeamentos
             builder.HasKey(o => o.Id);
             builder.Property(o => o.Id).ValueGeneratedOnAdd();
             builder.Property(o => o.CodigoPapel).HasMaxLength(10);
+            builder.HasOne(o => o.Investidor).WithMany(inv => inv.Ordens).HasForeignKey(o => o.InvestidorId);
         }
     }
 }

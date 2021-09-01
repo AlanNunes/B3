@@ -8,6 +8,7 @@ namespace SharedKernel.Infra.Data
         public DbSet<Ordem> Ordens { get; set; }
         public DbSet<Papel> Papel { get; set; }
         public DbSet<Empresa> Empresa { get; set; }
+        public DbSet<Investidor> Investidor { get; set; }
         public B3Contexto(DbContextOptions<B3Contexto> options) : base(options) { }
     }
 }

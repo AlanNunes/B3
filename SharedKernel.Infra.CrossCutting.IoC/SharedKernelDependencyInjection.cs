@@ -12,6 +12,7 @@ namespace SharedKernel.Infra.CrossCutting.IoC
         {
             services.AddDbContext<B3Contexto>(options => options.UseSqlServer(connString));
             services.AddScoped<IOrdemRepositorio, OrdemRepositorio>();
+            services.AddScoped<IInvestidorRepositorio, InvestidorRepositorio>();
         }
     }
 }

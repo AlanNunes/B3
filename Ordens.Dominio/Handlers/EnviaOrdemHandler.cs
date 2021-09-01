@@ -1,8 +1,10 @@
 ﻿using Dominio.Entidades;
+using Dominio.Interfaces.Repositorios;
 using MediatR;
 using Ordens.Dominio.Commands.Requests;
 using Ordens.Dominio.Commands.Responses;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,29 +12,41 @@ namespace Ordens.Dominio.Handlers
 {
     public class EnviaOrdemHandler : IRequestHandler<EnviaOrdemRequest, EnviaOrdemResponse>
     {
-        public Task<EnviaOrdemResponse> Handle(EnviaOrdemRequest request, CancellationToken cancellationToken)
+        private readonly IOrdemRepositorio _ordemRepositorio;
+        private readonly IInvestidorRepositorio _investidorRepositorio;
+
+        public EnviaOrdemHandler(IOrdemRepositorio ordemRepositorio, IInvestidorRepositorio investidorRepositorio)
         {
-            if (cancellationToken.IsCancellationRequested)
-                return Task.FromCanceled<EnviaOrdemResponse>(cancellationToken);
+            _ordemRepositorio = ordemRepositorio;
+            _investidorRepositorio = investidorRepositorio;
+        }
+
+        public async Task<EnviaOrdemResponse> Handle(EnviaOrdemRequest request, CancellationToken cancellationToken)
+        {
+            Investidor investidor = await _investidorRepositorio.BuscaInvestidorPeloCPF(request.CPF);
+            DateTime dataEnvio = DateTime.Now;
             var ordem = new Ordem
             {
                 CodigoPapel = request.CodigoPapel,
                 Tipo = request.TipoOrdem,
                 Valor = request.Valor,
-                DataEnvio = DateTime.Now,
-                Status = StatusOrdem.Enviada
+                InvestidorId = investidor.InvestidorId,
+                Status = StatusOrdem.Enviada,
+                DataEnvio = dataEnvio
             };
+
+            await _ordemRepositorio.RegistraOrdem(ordem);
 
             var enviaOrdemResponse = new EnviaOrdemResponse
             {
-                Id = new Random().Next(),
-                CodigoPapel = ordem.CodigoPapel,
-                Valor = ordem.Valor,
+                Id = ordem.Id,
+                CodigoPapel = request.CodigoPapel,
+                Valor = request.Valor,
                 Quantidade = request.Quantidade,
-                DataEnvio = ordem.DataEnvio
+                CPF = request.CPF,
+                DataEnvio = dataEnvio
             };
-
-            return Task.FromResult(enviaOrdemResponse);
+            return enviaOrdemResponse;
         }
     }
 }
