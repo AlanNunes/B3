@@ -14,6 +14,19 @@ namespace Dominio.Entidades
         public StatusOrdem Status { get; set; }
         public DateTime DataEnvio { get; set; }
 
+        public Ordem() { }
+
+        public Ordem(string codigoPapel, decimal valor, int quantidade, Investidor investidor, TipoOrdem tipo)
+        {
+            CodigoPapel = codigoPapel;
+            Valor = valor;
+            Quantidade = quantidade;
+            InvestidorId = investidor.InvestidorId;
+            Tipo = tipo;
+            Status = StatusOrdem.Enviada;
+            DataEnvio = DateTime.Now;
+        }
+
         public bool OrdemValida(DateTime inicioNegociacao, DateTime terminoNegociacao)
         {
             bool enviadaNoHorarioDeNegociacao = this.DataEnvio >= inicioNegociacao && this.DataEnvio <= terminoNegociacao;

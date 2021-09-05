@@ -3,7 +3,6 @@ using MediatR;
 using Ordens.Application.DTOs;
 using Ordens.Application.Interfaces;
 using Ordens.Dominio.Commands.Requests;
-using Ordens.Dominio.Commands.Responses;
 using System.Threading.Tasks;
 
 namespace Ordens.Application.Services

@@ -4,7 +4,7 @@ namespace Ordens.Dominio.Commands.Responses
 {
     public class Response
     {
-        ValidationResult ValidationResult { get; set; }
+        public ValidationResult ValidationResult { get; set; }
         public ValidationResult AdicionaResultadoDaValidacao(ValidationResult validationResult)
         {
             ValidationResult = validationResult;

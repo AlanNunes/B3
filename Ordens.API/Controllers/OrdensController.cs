@@ -20,7 +20,10 @@ namespace Ordens.API.Controllers
         public async Task<IActionResult> EnviaOrdem(EnviaOrdemRequestDTO ordem)
         {
             var response = await _appService.EnviaOrdem(ordem);
-            return Ok(response);
+            if (response.ValidationResult.IsValid)
+                return Ok(response);
+            else
+                return BadRequest(response.ValidationResult);
         }
     }
 }

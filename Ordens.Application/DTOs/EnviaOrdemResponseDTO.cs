@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentValidation.Results;
+using System;
 
 namespace Ordens.Application.DTOs
 {
@@ -10,5 +11,6 @@ namespace Ordens.Application.DTOs
         public int Quantidade { get; set; }
         public string CPF { get; set; }
         public DateTime DataEnvio { get; set; }
+        public ValidationResult ValidationResult { get; set; }
     }
 }
