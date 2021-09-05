@@ -1,4 +1,7 @@
-﻿using Dominio.Interfaces.Repositorios;
+﻿using Dominio.Entidades;
+using Dominio.Interfaces.Repositorios;
+using Dominio.Validators;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SharedKernel.Infra.Data;
@@ -13,6 +16,7 @@ namespace SharedKernel.Infra.CrossCutting.IoC
             services.AddDbContext<B3Contexto>(options => options.UseSqlServer(connString));
             services.AddScoped<IOrdemRepositorio, OrdemRepositorio>();
             services.AddScoped<IInvestidorRepositorio, InvestidorRepositorio>();
+            services.AddScoped<IValidator<Ordem>, OrdemValidator>();
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Ordens.Dominio.Commands.Responses
 {
-    public class EnviaOrdemResponse
+    public class EnviaOrdemResponse : Response
     {
         public int Id { get; set; }
         public string CodigoPapel { get; set; }

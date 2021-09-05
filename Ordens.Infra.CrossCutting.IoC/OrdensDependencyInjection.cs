@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Ordens.Application.Interfaces;
 using Ordens.Application.Services;
+using Ordens.Dominio.Commands.Requests;
+using Ordens.Dominio.Validators.Requests;
 using Ordens.Infra.CrossCutting.IoC.AutoMapper;
 using SharedKernel.Infra.CrossCutting.IoC;
 using System;
@@ -17,12 +20,12 @@ namespace Ordens.Infra.CrossCutting.IoC
             var assembly = AppDomain.CurrentDomain.Load("Ordens.Dominio");
             services.AddMediatR(assembly);
             services.AddScoped<IOrdemAppService, OrdemAppService>();
+            services.AddScoped<IValidator<EnviaOrdemRequest>, EnviaOrdemRequestValidator>();
 
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new MappingProfile());
             });
-
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
         }
