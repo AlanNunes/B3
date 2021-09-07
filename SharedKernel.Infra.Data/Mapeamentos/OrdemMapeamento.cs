@@ -10,8 +10,11 @@ namespace SharedKernel.Infra.Data.Mapeamentos
         {
             builder.HasKey(o => o.Id);
             builder.Property(o => o.Id).ValueGeneratedOnAdd();
-            builder.Property(o => o.CodigoPapel).HasMaxLength(10);
-            builder.HasOne(o => o.Investidor).WithMany(inv => inv.Ordens).HasForeignKey(o => o.InvestidorId);
+            builder.Property(o => o.CodigoPapel).HasMaxLength(10).IsRequired(); ;
+            builder.Property(o => o.Quantidade).IsRequired();
+            builder.Property(o => o.Valor).HasColumnType("decimal(18,4)").IsRequired();
+            builder.HasOne(o => o.Investidor)
+                .WithMany(inv => inv.Ordens).HasForeignKey(o => o.InvestidorId);
         }
     }
 }

@@ -17,9 +17,21 @@ namespace Ordens.API.Controllers
         }
 
         [HttpPost]
+        [Route("EnviaOrdem")]
         public async Task<IActionResult> EnviaOrdem(EnviaOrdemRequestDTO ordem)
         {
             var response = await _appService.EnviaOrdem(ordem);
+            if (response.ValidationResult.IsValid)
+                return Ok(response);
+            else
+                return BadRequest(response.ValidationResult);
+        }
+
+        [HttpPost]
+        [Route("CancelaOrdem")]
+        public async Task<IActionResult> CancelaOrdem(CancelaOrdemRequestDTO ordem)
+        {
+            var response = await _appService.CancelaOrdem(ordem);
             if (response.ValidationResult.IsValid)
                 return Ok(response);
             else

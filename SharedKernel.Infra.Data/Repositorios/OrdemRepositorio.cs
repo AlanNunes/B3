@@ -14,6 +14,11 @@ namespace SharedKernel.Infra.Data.Repositorios
             _contexto = contexto;
         }
 
+        public async Task<Ordem> BuscaOrdemPeloIdECPF(int id, string CPF)
+        {
+            return await _contexto.Ordens.FirstOrDefaultAsync(o => o.Id == id && o.Investidor.CPF == CPF);
+        }
+
         public async Task<Ordem> BuscaUltimaOrdemEnviadaPorInvestidor(int investidorId)
         {
             return await _contexto.Ordens.LastOrDefaultAsync(o => o.InvestidorId == investidorId);
@@ -23,6 +28,13 @@ namespace SharedKernel.Infra.Data.Repositorios
         {
             _contexto.Set<Ordem>();
             await _contexto.AddAsync(ordem);
+            await _contexto.SaveChangesAsync();
+        }
+
+        public async Task AlteraOrdem(Ordem ordem)
+        {
+            _contexto.Set<Ordem>();
+            _contexto.Update(ordem);
             await _contexto.SaveChangesAsync();
         }
     }

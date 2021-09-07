@@ -4,6 +4,7 @@
     {
         Enviada,
         Executada,
-        Rejeitada
+        Rejeitada,
+        Cancelada
     }
 }

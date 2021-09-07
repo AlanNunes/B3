@@ -6,7 +6,6 @@ using MediatR;
 using Ordens.Dominio.Commands.Requests;
 using Ordens.Dominio.Commands.Responses;
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -35,7 +34,7 @@ namespace Ordens.Dominio.Handlers
             DateTime dataEnvio = DateTime.Now;
             var enviaOrdemResponse = _mapper.Map<EnviaOrdemRequest, EnviaOrdemResponse>(request);
             enviaOrdemResponse.DataEnvio = dataEnvio;
-            var validacao = request.ValidaRequisicao(_validadorRequisicao);
+            var validacao = _validadorRequisicao.Validate(request);
             enviaOrdemResponse.AdicionaResultadoDaValidacao(validacao);
             Investidor investidor = await _investidorRepositorio.BuscaInvestidorPeloCPF(request.CPF);
 

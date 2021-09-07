@@ -12,8 +12,11 @@ namespace Ordens.Infra.CrossCutting.IoC.AutoMapper
         {
             CreateMap<EnviaOrdemRequestDTO, EnviaOrdemRequest>().ReverseMap();
             CreateMap<EnviaOrdemResponseDTO, EnviaOrdemResponse>().ReverseMap();
+            CreateMap<CancelaOrdemRequestDTO, CancelaOrdemRequest>().ReverseMap();
+            CreateMap<CancelaOrdemResponseDTO, CancelaOrdemResponse>().ReverseMap();
             CreateMap<EnviaOrdemRequest, Ordem>();
             CreateMap<EnviaOrdemRequest, EnviaOrdemResponse>();
+            CreateMap<CancelaOrdemRequest, CancelaOrdemResponse>();
         }
     }
 }
