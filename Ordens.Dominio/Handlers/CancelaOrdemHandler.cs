@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Ordens.Dominio.Commands.Requests;
 using Ordens.Dominio.Commands.Responses;
-using AutoMapper;
 using Dominio.Interfaces.Repositorios;
 using FluentValidation;
 using System.Threading.Tasks;
@@ -14,13 +13,11 @@ namespace Ordens.Dominio.Handlers
     {
         private readonly IOrdemRepositorio _ordemRepositorio;
         private readonly IValidator<CancelaOrdemRequest> _validadorRequisicao;
-        private readonly IMapper _mapper;
 
-        public CancelaOrdemHandler(IOrdemRepositorio ordemRepositorio, IValidator<CancelaOrdemRequest> validadorRequisicao, IMapper mapper)
+        public CancelaOrdemHandler(IOrdemRepositorio ordemRepositorio, IValidator<CancelaOrdemRequest> validadorRequisicao)
         {
             _ordemRepositorio = ordemRepositorio;
             _validadorRequisicao = validadorRequisicao;
-            _mapper = mapper;
         }
 
         public async Task<CancelaOrdemResponse> Handle(CancelaOrdemRequest request, CancellationToken cancellationToken)

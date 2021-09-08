@@ -22,6 +22,7 @@ namespace Ordens.Infra.CrossCutting.IoC
             services.AddScoped<IOrdemAppService, OrdemAppService>();
             services.AddScoped<IValidator<EnviaOrdemRequest>, EnviaOrdemRequestValidator>();
             services.AddScoped<IValidator<CancelaOrdemRequest>, CancelaOrdemRequestValidator>();
+            services.AddScoped<IValidator<ListaOrdensRequest>, ListaOrdensRequestValidator>();
 
             var mapperConfig = new MapperConfiguration(mc =>
             {

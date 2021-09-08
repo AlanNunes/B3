@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Ordens.Application.DTOs;
+using Ordens.Application.DTOs.ListaOrdens;
 using Ordens.Application.Interfaces;
 using Ordens.Dominio.Commands.Requests;
 using System.Threading.Tasks;
@@ -31,6 +32,14 @@ namespace Ordens.Application.Services
             var ordemRequest = _mapper.Map<EnviaOrdemRequest>(ordem);
             var response = await _handler.Send(ordemRequest);
             var responseDTO = _mapper.Map<EnviaOrdemResponseDTO>(response);
+            return responseDTO;
+        }
+
+        public async Task<ListaOrdensResponseDTO> ListaOrdens(ListaOrdensRequestDTO request)
+        {
+            var listaOrdensRequest = _mapper.Map<ListaOrdensRequest>(request);
+            var response = await _handler.Send(listaOrdensRequest);
+            var responseDTO = _mapper.Map<ListaOrdensResponseDTO>(response);
             return responseDTO;
         }
     }

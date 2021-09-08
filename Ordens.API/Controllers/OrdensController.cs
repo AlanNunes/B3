@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Ordens.Application.DTOs;
+using Ordens.Application.DTOs.ListaOrdens;
 using Ordens.Application.Interfaces;
 using System.Threading.Tasks;
 
@@ -14,6 +15,17 @@ namespace Ordens.API.Controllers
         public OrdensController(IOrdemAppService appService)
         {
             _appService = appService;
+        }
+
+        [HttpGet]
+        [Route("ListaOrdens")]
+        public async Task<IActionResult> ListaOrdens(ListaOrdensRequestDTO listaOrdens)
+        {
+            var response = await _appService.ListaOrdens(listaOrdens);
+            if (response.ValidationResult.IsValid)
+                return Ok(response);
+            else
+                return BadRequest(response.ValidationResult);
         }
 
         [HttpPost]

@@ -1,6 +1,8 @@
 ﻿using Dominio.Entidades;
 using Dominio.Interfaces.Repositorios;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SharedKernel.Infra.Data.Repositorios
@@ -16,12 +18,14 @@ namespace SharedKernel.Infra.Data.Repositorios
 
         public async Task<Ordem> BuscaOrdemPeloIdECPF(int id, string CPF)
         {
-            return await _contexto.Ordens.FirstOrDefaultAsync(o => o.Id == id && o.Investidor.CPF == CPF);
+            return await _contexto.Ordens
+                .FirstOrDefaultAsync(o => o.Id == id && o.Investidor.CPF == CPF);
         }
 
         public async Task<Ordem> BuscaUltimaOrdemEnviadaPorInvestidor(int investidorId)
         {
-            return await _contexto.Ordens.LastOrDefaultAsync(o => o.InvestidorId == investidorId);
+            return await _contexto.Ordens
+                .LastOrDefaultAsync(o => o.InvestidorId == investidorId);
         }
 
         public async Task RegistraOrdem(Ordem ordem)
@@ -36,6 +40,13 @@ namespace SharedKernel.Infra.Data.Repositorios
             _contexto.Set<Ordem>();
             _contexto.Update(ordem);
             await _contexto.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Ordem>> BuscaOrdensPorInvestidor(int investidorId)
+        {
+            return await _contexto.Ordens
+                .Where(o => o.InvestidorId == investidorId)
+                .ToListAsync();
         }
     }
 }
